@@ -1,5 +1,6 @@
 package com.example.springbootapi.controller;
 
+import com.example.springbootapi.dto.EmployeeDTO;
 import com.example.springbootapi.entity.Employee;
 import com.example.springbootapi.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -42,5 +44,13 @@ public class EmployeeController {
         return employeeService.saveEmployee(employee);
     }
 
+    @GetMapping("/employeesDTO")
+    public List<EmployeeDTO> getListUsers(){
+        List<Employee> list= employeeService.getAllEmployee();
+        List<EmployeeDTO> list1= new ArrayList<>();
+        for (Employee employee:list) {
+            list1.add(new EmployeeDTO(employee));
+        }
+        return list1;
+    }
 }
-
